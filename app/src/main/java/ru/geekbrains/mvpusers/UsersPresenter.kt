@@ -1,16 +1,21 @@
 package ru.geekbrains.mvpusers
 
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 import ru.geekbrains.data.GitHubUserRepository
 import ru.geekbrains.mvpuser.UserScreen
-import ru.geekbrains.navigation.CustomRouter
+import javax.inject.Inject
 
-class UsersPresenter(
-    private val userRepository: GitHubUserRepository,
-    private val router: CustomRouter
-): MvpPresenter<UsersView>() {
+class UsersPresenter : MvpPresenter<UsersView>() {
+
+    @Inject
+    lateinit var userRepository: GitHubUserRepository
+
+    @Inject
+    lateinit var router: Router
 
     override fun onFirstViewAttach() {
        updateContent()
