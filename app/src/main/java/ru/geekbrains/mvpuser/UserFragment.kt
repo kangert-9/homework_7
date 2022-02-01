@@ -26,11 +26,10 @@ class UserFragment: MvpAppCompatFragment(R.layout.view_user), UserView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewBinding = ViewUserBinding.bind(view)
-        viewBinding.userLogin.text = userLogin
     }
 
     override fun showUser(user: GitHubUser) {
-        viewBinding.userLogin.text = user.login
+        viewBinding.userLogin.text = user.name
     }
 
     companion object {
