@@ -27,7 +27,17 @@ class GitHubUserRepositoryImpl
             }
     }
 
-    override fun getUserByLogin(userId: String): GitHubUser? {
-        return null
+    override fun getUserByLogin(userId: String): Single<GitHubUser> {
+        return roomDb.getUserByLogin(userId).flatMap {
+            if (it.name==null){
+                gitHubApi.fetchUserByLogin(userId).map {
+                        resultFromServer ->
+                    roomDb.saveUser(resultFromServer)
+                    resultFromServer
+                }
+            } else{
+                Single.just(it)
+            }
+        }
     }
 }
